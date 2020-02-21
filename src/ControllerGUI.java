@@ -1,13 +1,13 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -20,7 +20,6 @@ public class ControllerGUI extends Application {
     private static final int width = 1000;
     private static final int height = 500;
     private static final Font defaultFont = new Font("Helvetica", 24);
-    private static final Color backgroundColor = Color.DARKGRAY;
 
     /* Components  */
     Label fiberLabel;
@@ -38,7 +37,7 @@ public class ControllerGUI extends Application {
         // initialize main layout
         rootLayout = new VBox();
         rootLayout.setAlignment(Pos.CENTER_LEFT);   // align everything in this layout in the along the center
-        rootLayout.setStyle("-fx-background-color: rgb(20, 20, 20)");               // set background color CSS
+        rootLayout.setStyle("-fx-background-color: rgb(200, 200, 200)");               // set background color CSS
         rootLayout.setPadding(new Insets(10, 10, 10, 10));  // set padding
 
         /* Create graph and information layout for fiber */
@@ -52,6 +51,12 @@ public class ControllerGUI extends Application {
         fiberLabel.setFont(defaultFont);            // set font
         GridPane.setConstraints(fiberLabel, 0, 0, 2, 1); // set location of label on grid
         dataPane.getChildren().add(fiberLabel);     // add label to layout
+
+        // add separator to bottom of data pane
+        Separator dataPaneSeparator = new Separator(Orientation.HORIZONTAL);        // create horizontal separator
+        GridPane.setRowIndex(dataPaneSeparator, dataPane.getRowCount());            // set on last row
+        GridPane.setColumnSpan(dataPaneSeparator, GridPane.REMAINING);              // span all columns
+        dataPane.getChildren().add(dataPaneSeparator);                              // add to data pane
 
         /* Create HBox footer */
         HBox footerBox = new HBox();
