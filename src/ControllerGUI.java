@@ -66,8 +66,14 @@ public class ControllerGUI extends Application {
         fiberLabel = new Label();
         fiberLabel.setText("SCP 1");                // set label text
         fiberLabel.setFont(defaultFont);            // set font
-        GridPane.setConstraints(fiberLabel, 0, 0, 2, 1); // set location of label on grid
+        GridPane.setConstraints(fiberLabel, 0, 0, 1, 1); // set location of label on grid
         dataPane.getChildren().add(fiberLabel);     // add label to layout
+
+        Label activeLabel = new Label();
+        activeLabel.setText(" : Active");                // set label text
+        activeLabel.setFont(defaultFont);            // set font
+        GridPane.setConstraints(activeLabel, 1, 0, 1, 1); // set location of label on grid
+        dataPane.getChildren().add(activeLabel);     // add label to layout
 
         // create standard x axis for all graphs
         NumberAxis xAxis = new NumberAxis();
@@ -77,7 +83,10 @@ public class ControllerGUI extends Application {
         NumberAxis yAxisCurrent = new NumberAxis();
         yAxisCurrent.setLabel(currentChartYAxisName);
         AreaChart currentChart = new AreaChart(xAxis, yAxisCurrent);
-        GridPane.setConstraints(currentChart, 0, 1, 10, 2);
+        currentChart.setPrefHeight(100);
+        currentChart.setPrefWidth(1000);
+        GridPane.setConstraints(currentChart, 0, 1, 1, 1);
+        GridPane.setHgrow(currentChart, Priority.ALWAYS);
         dataPane.getChildren().add(currentChart);
 
         // add separator to bottom of data pane

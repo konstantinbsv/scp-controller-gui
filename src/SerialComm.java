@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class SerialComm {
     private static final int hello = 0;
 
