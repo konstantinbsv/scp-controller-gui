@@ -3,6 +3,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
@@ -19,18 +22,22 @@ public class ControllerGUI extends Application {
     /* Constants  */
     private static final int width = 1000;
     private static final int height = 500;
+    private static final int areaChartLength = 1000;
+    private static final int areaChartHeight = 100;
     private static final Font defaultFont = new Font("Helvetica", 24);
+    private static final String currentChartYAxisName = "Current (mA)";
+    private static final String chartXAxisName = "Time (s)";
 
     /* Components  */
-    AnchorPane rootLayout;
-    VBox dataPanesVBox;
-    HBox logoHBox;
-    GridPane dataPane;
-    Label fiberLabel;
-    FileInputStream ubcLogoFile;
-    Image ubcLogo;
-    ImageView ubcLogoView;
-    Scene mainScene;
+    private AnchorPane rootLayout;
+    private VBox dataPanesVBox;
+    private HBox logoHBox;
+    private  GridPane dataPane;
+    private Label fiberLabel;
+    private FileInputStream ubcLogoFile;
+    private Image ubcLogo;
+    private ImageView ubcLogoView;
+    private Scene mainScene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -61,6 +68,17 @@ public class ControllerGUI extends Application {
         fiberLabel.setFont(defaultFont);            // set font
         GridPane.setConstraints(fiberLabel, 0, 0, 2, 1); // set location of label on grid
         dataPane.getChildren().add(fiberLabel);     // add label to layout
+
+        // create standard x axis for all graphs
+        NumberAxis xAxis = new NumberAxis();
+        xAxis.setLabel(chartXAxisName);
+
+        // create area chart for current measurements
+        NumberAxis yAxisCurrent = new NumberAxis();
+        yAxisCurrent.setLabel(currentChartYAxisName);
+        AreaChart currentChart = new AreaChart(xAxis, yAxisCurrent);
+        GridPane.setConstraints(currentChart, 0, 1, 10, 2);
+        dataPane.getChildren().add(currentChart);
 
         // add separator to bottom of data pane
         Separator dataPaneSeparator = new Separator(Orientation.HORIZONTAL);        // create horizontal separator
@@ -95,11 +113,5 @@ public class ControllerGUI extends Application {
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
-//    @Override
-//    public void start(Stage primaryStage) throws Exception{
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-//        primaryStage.setTitle("Hello World");
-//        primaryStage.setScene(new Scene(root, 300, 275));
-//        primaryStage.show();
-//    }
+
 }
