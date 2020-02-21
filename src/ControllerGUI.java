@@ -22,8 +22,11 @@ public class ControllerGUI extends Application {
     private static final Font defaultFont = new Font("Helvetica", 24);
 
     /* Components  */
+    AnchorPane rootLayout;
+    VBox dataPanesVBox;
+    HBox logoHBox;
+    GridPane dataPane;
     Label fiberLabel;
-    VBox rootLayout;
     FileInputStream ubcLogoFile;
     Image ubcLogo;
     ImageView ubcLogoView;
@@ -35,19 +38,26 @@ public class ControllerGUI extends Application {
         primaryStage.initStyle(StageStyle.DECORATED);
 
         // initialize main layout
-        rootLayout = new VBox();
-        rootLayout.setAlignment(Pos.CENTER_LEFT);   // align everything in this layout in the along the center
+        rootLayout = new AnchorPane();
         rootLayout.setStyle("-fx-background-color: rgb(200, 200, 200)");               // set background color CSS
         rootLayout.setPadding(new Insets(10, 10, 10, 10));  // set padding
 
+        // initialize VBox layout for data panes
+        dataPanesVBox = new VBox();
+        dataPanesVBox.setAlignment(Pos.TOP_LEFT);   // align everything in this layout top left
+        rootLayout.getChildren().add(dataPanesVBox);
+
         /* Create graph and information layout for fiber */
-        GridPane dataPane = new GridPane();     // create GridPane layout
+        dataPane = new GridPane();     // create GridPane layout
+        AnchorPane.setTopAnchor(dataPane, 0.0);
+        AnchorPane.setLeftAnchor(dataPane, 0.0);
         dataPane.setHgap(5);    // gap between columns
         dataPane.setVgap(5);    // gap between rows
+        dataPanesVBox.getChildren().add(dataPane);
 
         // initialize, create, and add label
         fiberLabel = new Label();
-        fiberLabel.setText("Fiber 1");              // set label text
+        fiberLabel.setText("SCP 1");                // set label text
         fiberLabel.setFont(defaultFont);            // set font
         GridPane.setConstraints(fiberLabel, 0, 0, 2, 1); // set location of label on grid
         dataPane.getChildren().add(fiberLabel);     // add label to layout
@@ -59,8 +69,11 @@ public class ControllerGUI extends Application {
         dataPane.getChildren().add(dataPaneSeparator);                              // add to data pane
 
         /* Create HBox footer */
-        HBox footerBox = new HBox();
-        footerBox.setAlignment(Pos.BOTTOM_RIGHT);
+        logoHBox = new HBox();
+        logoHBox.setAlignment(Pos.CENTER);
+        rootLayout.getChildren().add(logoHBox);           // add to root anchor layout
+        AnchorPane.setBottomAnchor(logoHBox, 0.0);  // place on bottom
+        AnchorPane.setRightAnchor(logoHBox, 0.0);   // right of screen
 
         // add logos to footer
         ubcLogoFile = new FileInputStream("resources/images/ubclogo.png");
@@ -71,18 +84,15 @@ public class ControllerGUI extends Application {
         ubcLogoView.setOnMouseClicked(e -> {
             primaryStage.close();
         });
-        footerBox.getChildren().add(ubcLogoView);      // add logo to VBox
+        logoHBox.getChildren().add(ubcLogoView);      // add logo to logo hbox
 
-        // add dataPanes and footer to main VBox layout
-        rootLayout.getChildren().add(dataPane);
-        rootLayout.getChildren().add(footerBox);
 
         // create main scene and set it on primaryStage
         mainScene = new Scene(rootLayout);
         primaryStage.setScene(mainScene);
-        primaryStage.sizeToScene();
 
         // show primary stage
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 //    @Override
