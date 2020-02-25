@@ -14,7 +14,7 @@ public class GUI extends Application implements Runnable {
         Parent root = FXMLLoader.load(getClass().getResource("GUIView.fxml"));
         Scene scene = new Scene(root);
         // scene.getStylesheets().clear();
-        scene.getStylesheets().add("modena_dark.css");
+        scene.getStylesheets().add("flat_dark_theme.css");
         stage.setTitle(stageTitle);
         stage.setScene(scene);
         stage.setMaximized(true);
