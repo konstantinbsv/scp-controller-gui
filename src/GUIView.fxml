@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUIController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="6.0" prefHeight="133.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="125.0" text="SCP Fiber 1">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ToggleButton fx:id="activate_scp1" maxHeight="29.0" mnemonicParsing="false" prefHeight="28.0" text="Active" />
+                     </children>
+                  </HBox>
+               </top>
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AreaChart fx:id="current_chart_scp1" alternativeRowFillVisible="false" animated="false" createSymbols="false" horizontalGridLinesVisible="false" legendVisible="false" maxHeight="90.0" minHeight="90.0" prefHeight="90.0" style="-fx-padding: 1px;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                          <xAxis>
+                            <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis animated="false" autoRanging="false" side="LEFT" tickUnit="25.0" upperBound="500.0" />
+                          </yAxis>
+                        </AreaChart>
+                        <AreaChart fx:id="temp_chart_scp1" alternativeRowFillVisible="false" animated="false" createSymbols="false" horizontalGridLinesVisible="false" layoutX="10.0" layoutY="10.0" legendVisible="false" maxHeight="90.0" minHeight="90.0" prefHeight="90.0" style="-fx-padding: 1px;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                           <xAxis>
+                              <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis animated="false" autoRanging="false" side="LEFT" upperBound="100.0" />
+                           </yAxis>
+                        </AreaChart>
+                     </children>
+                  </VBox>
+               </center>
+               <right>
+                  <GridPane prefHeight="302.0" prefWidth="257.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Current (mA)">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="current_scp1" text="---">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label text="Volt. (V)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="voltage_scp1" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="Temp (°C)">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="temp_scp1" text="---">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="Duty Cycle (%)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="duty_cycle_scp1" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                           <children>
+                              <Label text="Power (mW)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="power_scp1" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </right>
+               <bottom>
+                  <Separator prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="125.0" text="SCP Fiber 2">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ToggleButton fx:id="activate_scp2" maxHeight="29.0" mnemonicParsing="false" prefHeight="25.0" text="Active" />
+                     </children>
+                  </HBox>
+               </top>
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AreaChart fx:id="current_chart_scp2" alternativeRowFillVisible="false" animated="false" createSymbols="false" horizontalGridLinesVisible="false" legendVisible="false" maxHeight="90.0" minHeight="90.0" prefHeight="90.0" style="-fx-padding: 1px;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                           <xAxis>
+                              <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis animated="false" autoRanging="false" side="LEFT" tickUnit="25.0" upperBound="500.0" />
+                           </yAxis>
+                        </AreaChart>
+                        <AreaChart fx:id="temp_chart_scp2" alternativeRowFillVisible="false" animated="false" createSymbols="false" horizontalGridLinesVisible="false" layoutX="10.0" layoutY="10.0" legendVisible="false" maxHeight="90.0" minHeight="90.0" prefHeight="90.0" style="-fx-padding: 1px;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                           <xAxis>
+                              <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis animated="false" autoRanging="false" side="LEFT" tickUnit="25.0" upperBound="100.0" />
+                           </yAxis>
+                        </AreaChart>
+                     </children>
+                  </VBox>
+               </center>
+               <right>
+                  <GridPane prefHeight="302.0" prefWidth="257.0" BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Current (mA)">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="current_scp2" text="---">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label text="Volt. (V)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="voltage_scp2" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="Temp (°C)">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="temp_scp2" text="---">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="Duty Cycle (%)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="duty_cycle_scp2" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                           <children>
+                              <Label text="Power (mW)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="power_scp2" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </right>
+               <bottom>
+                  <Separator prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </bottom>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="125.0" text="SCP Fiber 3">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ToggleButton fx:id="activate_scp3" maxHeight="29.0" mnemonicParsing="false" prefHeight="25.0" text="Active" />
+                     </children>
+                  </HBox>
+               </top>
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AreaChart fx:id="current_chart_scp3" alternativeRowFillVisible="false" animated="false" createSymbols="false" horizontalGridLinesVisible="false" legendVisible="false" maxHeight="90.0" minHeight="90.0" prefHeight="90.0" style="-fx-padding: 1px;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                           <xAxis>
+                              <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis animated="false" autoRanging="false" side="LEFT" tickUnit="25.0" upperBound="500.0" />
+                           </yAxis>
+                        </AreaChart>
+                        <AreaChart fx:id="temp_chart_scp3" alternativeRowFillVisible="false" animated="false" createSymbols="false" horizontalGridLinesVisible="false" layoutX="10.0" layoutY="10.0" legendVisible="false" maxHeight="90.0" minHeight="90.0" prefHeight="90.0" style="-fx-padding: 1px;" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+                           <xAxis>
+                              <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis animated="false" autoRanging="false" side="LEFT" tickUnit="25.0" upperBound="100.0" />
+                           </yAxis>
+                        </AreaChart>
+                     </children>
+                  </VBox>
+               </center>
+               <right>
+                  <GridPane prefHeight="302.0" prefWidth="257.0" BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Current (mA)">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="current_scp3" text="---">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label text="Volt. (V)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="voltage_scp3" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="Temp (°C)">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="temp_scp3" text="---">
+                                 <font>
+                                    <Font name="Arial Black" size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="95.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="Duty Cycle (%)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="duty_cycle_scp3" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                           <children>
+                              <Label text="Power (mW)">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="power_scp3" text="---">
+                                 <font>
+                                    <Font name="Arial Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                              <ImageView fitHeight="69.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@res/images/ubclogo.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </right>
+            </BorderPane>
+         </children>
+      </VBox>
+      <MenuBar layoutX="937.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Settings">
+            <items>
+              <MenuItem mnemonicParsing="false" text="COM Port" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
