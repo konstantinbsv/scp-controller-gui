@@ -35,6 +35,7 @@ public class GUIModel {
     private XYChart.Series<Number, Number> current_series_scp1 = new XYChart.Series<>();
     private XYChart.Series<Number, Number> temp_series_scp1 = new XYChart.Series<>();
 
+
     // SCP2
     private XYChart.Series<Number, Number> current_series_scp2 = new XYChart.Series<>();
     private XYChart.Series<Number, Number> temp_series_scp2 = new XYChart.Series<>();
@@ -44,7 +45,7 @@ public class GUIModel {
     private XYChart.Series<Number, Number> temp_series_scp3 = new XYChart.Series<>();
 
     private GUIModel() {
-
+        // current_series_scp1.getData().
     }
 
     public static GUIModel getInstance() {
@@ -84,7 +85,7 @@ public class GUIModel {
 
     public void setCurrentSCP2(String currentSCP2) {
         this.currentSCP2Property.set(currentSCP2);
-        updateCurrentChartSeriesSCP2(Float.parseFloat(currentSCP2));
+         updateCurrentChartSeriesSCP2(Float.parseFloat(currentSCP2));
     }
 
     public void setPowerSCP2(String powerSCP2) {
