@@ -56,7 +56,7 @@
                               <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
                            </xAxis>
                            <yAxis>
-                              <NumberAxis animated="false" autoRanging="false" side="LEFT" upperBound="50" />
+                              <NumberAxis animated="false" autoRanging="false" lowerBound="25.0" side="LEFT" upperBound="50" />
                            </yAxis>
                         </AreaChart>
                      </children>
@@ -185,7 +185,7 @@
                               <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
                            </xAxis>
                            <yAxis>
-                              <NumberAxis animated="false" autoRanging="false" side="LEFT" tickUnit="25.0" upperBound="50" />
+                              <NumberAxis animated="false" autoRanging="false" lowerBound="25.0" side="LEFT" upperBound="50" />
                            </yAxis>
                         </AreaChart>
                      </children>
@@ -314,7 +314,7 @@
                               <NumberAxis animated="false" autoRanging="false" minorTickVisible="false" side="LEFT" style="-fx-padding: 0;" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="25.0" upperBound="250.0" />
                            </xAxis>
                            <yAxis>
-                              <NumberAxis animated="false" autoRanging="false" side="LEFT" tickUnit="25.0" upperBound="50" />
+                              <NumberAxis animated="false" autoRanging="false" lowerBound="25.0" side="LEFT" upperBound="50" />
                            </yAxis>
                         </AreaChart>
                      </children>
