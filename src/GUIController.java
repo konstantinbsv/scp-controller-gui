@@ -10,10 +10,13 @@ import javafx.scene.control.Label;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GUIController implements Initializable {
 
     static final int refreshDelay = 50; // interface refresh delay in milliseconds
+    Logger logger = Logger.getLogger(getClass().getName());
 
     SerialPort stmPort;
     InputStream stmIn;
@@ -155,8 +158,8 @@ public class GUIController implements Initializable {
         model.setDutyCycleSCP3(PacketPatterns.getStringValue(getNextLine(), false));
 
         getNextLine(); // removes END marker from packet buffer
-        System.out.println("Update properties time: " + (System.nanoTime() - startTime) / 1000);
-
+        String traceString = "Update properties time: " + (System.nanoTime() - startTime) / 1000;
+        logger.log(Level.INFO, traceString);
     }
 
     private String getNextLine() {
