@@ -9,6 +9,10 @@
     /* Color Palette */
     SECONDARY_GREEN: #03dac6;
 
+    PURPLE_50: #F3E5F5;
+    LIGHT_BLUE_50: #E1F5FE;
+    LIME_50: #F9FBE7;
+
     -fx-base: #212121;
     -fx-background: #212121;
 
@@ -132,4 +136,35 @@
 #temp_chart_scp2 .chart-series-area-fill,
 #temp_chart_scp3 .chart-series-area-fill {
     -fx-fill: CHART_COLOR_1_TRANS_20;
+}
+
+/* Secondary, non-graphical displays */
+/* Set voltage text fill color */
+#voltage_scp1_label,
+#voltage_scp2_label,
+#voltage_scp3_label,
+#voltage_scp1,
+#voltage_scp2,
+#voltage_scp3 {
+    -fx-text-fill: LIME_50;
+}
+
+/* Set power text fill color */
+#power_scp1_label,
+#power_scp2_label,
+#power_scp3_label,
+#power_scp1,
+#power_scp2,
+#power_scp3 {
+    -fx-text-fill: PURPLE_50;
+}
+
+/* Set duty cycle text fill color */
+#duty_cycle_scp1_label,
+#duty_cycle_scp2_label,
+#duty_cycle_scp3_label,
+#duty_cycle_scp1,
+#duty_cycle_scp2,
+#duty_cycle_scp3 {
+    -fx-text-fill: LIGHT_BLUE_50;
 }
