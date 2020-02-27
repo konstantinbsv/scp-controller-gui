@@ -8,7 +8,7 @@ public class PacketPatterns {
     private static final String endString = "END";
     public static final Pattern endPattern = Pattern.compile(endString);
 
-    private static final String floatValueString = ("\\.* (\\d+\\.\\d+)");     // "Current1: (\\d+\\.\\d+)";
+    private static final String floatValueString = ("\\.* (\\d+\\.\\d)");     // "Current1: (\\d+\\.\\d+)";
     public static final Pattern floatValuePattern = Pattern.compile(floatValueString);
 
     public static String getStringValue (String rawData) {
