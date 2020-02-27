@@ -138,18 +138,21 @@ public class GUIController implements Initializable {
         model.setCurrentSCP1(PacketPatterns.getStringValue(getNextLine()));
         model.setPowerSCP1(PacketPatterns.getStringValue(getNextLine()));
         model.setTempSCP1(PacketPatterns.getStringValue(getNextLine()));
+        model.setDutyCycleSCP1(PacketPatterns.getStringValue(getNextLine()));
 
         // SCP2
         model.setVoltageSCP2(PacketPatterns.getStringValue(getNextLine()));
         model.setCurrentSCP2(PacketPatterns.getStringValue(getNextLine()));
         model.setPowerSCP2(PacketPatterns.getStringValue(getNextLine()));
         model.setTempSCP2(PacketPatterns.getStringValue(getNextLine()));
+        model.setDutyCycleSCP2(PacketPatterns.getStringValue(getNextLine()));
 
         // SCP3
         model.setVoltageSCP3(PacketPatterns.getStringValue(getNextLine()));
         model.setCurrentSCP3(PacketPatterns.getStringValue(getNextLine()));
         model.setPowerSCP3(PacketPatterns.getStringValue(getNextLine()));
         model.setTempSCP3(PacketPatterns.getStringValue(getNextLine()));
+        model.setDutyCycleSCP3(PacketPatterns.getStringValue(getNextLine()));
 
         getNextLine(); // removes END marker from packet buffer
         System.out.println("Update properties time: " + (System.nanoTime() - startTime) / 1000);
