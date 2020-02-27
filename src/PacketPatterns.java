@@ -8,11 +8,25 @@ public class PacketPatterns {
     private static final String endString = "END";
     public static final Pattern endPattern = Pattern.compile(endString);
 
-    private static final String floatValueString = ("\\.* (\\d+\\.\\d)");     // "Current1: (\\d+\\.\\d+)";
-    public static final Pattern floatValuePattern = Pattern.compile(floatValueString);
+    private static final String floatValueString1FD = ("\\.* (\\d+\\.\\d)");     // "Current1: (\\d+\\.\\d)";
+    public static final Pattern floatValuePattern1FD = Pattern.compile(floatValueString1FD);
+
+    private static final String floatValueString0FD = ("\\.* (\\d+)");     // "Current1: (\\d+\\.\\d)";
+    public static final Pattern floatValuePattern0FD = Pattern.compile(floatValueString0FD);
 
     public static String getStringValue (String rawData) {
-        Matcher floatMatcher = floatValuePattern.matcher(rawData);
+        return getStringValue(rawData, true);
+    }
+
+    public static String getStringValue (String rawData, boolean fractionalDigits) {
+        Matcher floatMatcher;
+
+        if (fractionalDigits ) {
+            floatMatcher = floatValuePattern1FD.matcher(rawData);
+        } else {
+            floatMatcher = floatValuePattern0FD.matcher(rawData);
+        }
+
         if (floatMatcher.find()) {
             return floatMatcher.group(1);
         } else {
