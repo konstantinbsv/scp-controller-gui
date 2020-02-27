@@ -3,8 +3,12 @@
  * Original modena.css here: https://gist.github.com/maxd/63691840fc372f22f470.
  */
 
+
 /* Redefine base colors */
 .root {
+    /* Color Palette */
+    SECONDARY_GREEN: #03dac6;
+
     -fx-base: #212121;
     -fx-background: #212121;
 
@@ -78,4 +82,54 @@
 
 .axis:left {
     -fx-tick-label-fill: #757575;
+}
+
+/* Current Charts color scheme */
+/* Set text fill color */
+#current_scp1_label,
+#current_scp2_label,
+#current_scp3_label,
+#current_scp1,
+#current_scp2,
+#current_scp3 {
+    -fx-text-fill: SECONDARY_GREEN;
+}
+
+/* Set line stroke color */
+#current_chart_scp1 .chart-series-area-line,
+#current_chart_scp2 .chart-series-area-line,
+#current_chart_scp3 .chart-series-area-line {
+    -fx-stroke: SECONDARY_GREEN;
+}
+
+/* Set area graph fill color */
+#current_chart_scp1 .chart-series-area-fill,
+#current_chart_scp2 .chart-series-area-fill,
+#current_chart_scp3 .chart-series-area-fill {
+    -fx-fill: derive(SECONDARY_GREEN, -70%);
+}
+
+/* Temp Charts color scheme */
+/* Set text fill color */
+#temp_scp1_label,
+#temp_scp2_label,
+#temp_scp3_label,
+#temp_scp1,
+#temp_scp2,
+#temp_scp3 {
+    -fx-text-fill: CHART_COLOR_1;
+}
+
+/* Set line stroke color */
+#temp_chart_scp1 .chart-series-area-line,
+#temp_chart_scp2 .chart-series-area-line,
+#temp_chart_scp3 .chart-series-area-line {
+    -fx-stroke: CHART_COLOR_1;
+}
+
+/* Set area graph fill color */
+#temp_chart_scp1 .chart-series-area-fill,
+#temp_chart_scp2 .chart-series-area-fill,
+#temp_chart_scp3 .chart-series-area-fill {
+    -fx-fill: CHART_COLOR_1_TRANS_20;
 }
