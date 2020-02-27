@@ -90,7 +90,7 @@
                               </Label>
                               <Label fx:id="current_scp1" text="---">
                                  <font>
-                                    <Font name="Arial Black" size="11.0" />
+                                    <Font name="Arial Black" size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -104,7 +104,7 @@
                               </Label>
                               <Label fx:id="voltage_scp1" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -118,7 +118,7 @@
                               </Label>
                               <Label fx:id="temp_scp1" text="---">
                                  <font>
-                                    <Font name="Arial Black" size="11.0" />
+                                    <Font name="Arial Black" size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -132,7 +132,7 @@
                               </Label>
                               <Label fx:id="duty_cycle_scp1" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -146,7 +146,7 @@
                               </Label>
                               <Label fx:id="power_scp1" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -224,7 +224,7 @@
                               </Label>
                               <Label fx:id="current_scp2" text="---">
                                  <font>
-                                    <Font name="Arial Black" size="11.0" />
+                                    <Font name="Arial Black" size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -238,7 +238,7 @@
                               </Label>
                               <Label fx:id="voltage_scp2" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -252,7 +252,7 @@
                               </Label>
                               <Label fx:id="temp_scp2" text="---">
                                  <font>
-                                    <Font name="Arial Black" size="11.0" />
+                                    <Font name="Arial Black" size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -266,7 +266,7 @@
                               </Label>
                               <Label fx:id="duty_cycle_scp2" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -280,7 +280,7 @@
                               </Label>
                               <Label fx:id="power_scp2" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -358,7 +358,7 @@
                               </Label>
                               <Label fx:id="current_scp3" text="---">
                                  <font>
-                                    <Font name="Arial Black" size="11.0" />
+                                    <Font name="Arial Black" size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -372,7 +372,7 @@
                               </Label>
                               <Label fx:id="voltage_scp3" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -386,7 +386,7 @@
                               </Label>
                               <Label fx:id="temp_scp3" text="---">
                                  <font>
-                                    <Font name="Arial Black" size="11.0" />
+                                    <Font name="Arial Black" size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -400,7 +400,7 @@
                               </Label>
                               <Label fx:id="duty_cycle_scp3" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
@@ -414,7 +414,7 @@
                               </Label>
                               <Label fx:id="power_scp3" text="---">
                                  <font>
-                                    <Font name="Arial Bold" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
                            </children>
