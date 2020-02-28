@@ -13,6 +13,8 @@
     LIGHT_BLUE_50: #E1F5FE;
     LIME_50: #F9FBE7;
 
+    GREY_TICK_LABELS: #757575;
+
     -fx-base: #212121;
     -fx-background: #212121;
 
@@ -85,7 +87,7 @@
 }
 
 .axis:left {
-    -fx-tick-label-fill: #757575;
+    -fx-tick-label-fill: GREY_TICK_LABELS;
 }
 
 /* Current Charts color scheme */
@@ -168,3 +170,10 @@
 #duty_cycle_scp3 {
     -fx-text-fill: LIGHT_BLUE_50;
 }
+
+/* Sliders */
+.slider .axis  {
+    -fx-tick-label-fill: GREY_TICK_LABELS;
+}
+
+#setp
