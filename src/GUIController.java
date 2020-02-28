@@ -6,6 +6,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 
 import java.io.*;
 import java.net.URL;
@@ -185,6 +186,19 @@ public class GUIController implements Initializable {
     //        }
 
         return bufferString.toString();
+    }
+
+    private void sendLineUART(String line) {
+        byte[] buffer = (line + "\r\n").getBytes();
+
+        // send bytes in new thread
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                stmPort.writeBytes(buffer, buffer.length);
+            }
+        }).start();
+
     }
 
     /**
