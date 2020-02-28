@@ -43,7 +43,7 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Slider>
-                        <Label text="Setpoint: ">
+                        <Label style="-fx-text-fill: #757575;" text="Setpoint: ">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
@@ -195,7 +195,7 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Slider>
-                        <Label text="Setpoint: ">
+                        <Label style="-fx-text-fill: #757575;" text="Setpoint: ">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
@@ -344,7 +344,7 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Slider>
-                        <Label text="Setpoint: ">
+                        <Label style="-fx-text-fill: #757575;" text="Setpoint: ">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
