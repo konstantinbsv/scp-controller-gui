@@ -33,6 +33,7 @@ public class GUIController implements Initializable {
 
     public ToggleButton activate_scp1;
     public Slider slider_scp1;
+    public Label setpoint_label_scp1;
     public Label voltage_scp1;
     public Label current_scp1;
     public Label power_scp1;
@@ -41,6 +42,9 @@ public class GUIController implements Initializable {
     public AreaChart<Number, Number> current_chart_scp1;
     public AreaChart<Number, Number> temp_chart_scp1;
 
+    public ToggleButton activate_scp2;
+    public Slider slider_scp2;
+    public Label setpoint_label_scp2;
     public Label voltage_scp2;
     public Label current_scp2;
     public Label power_scp2;
@@ -49,6 +53,9 @@ public class GUIController implements Initializable {
     public AreaChart<Number, Number> current_chart_scp2;
     public AreaChart<Number, Number> temp_chart_scp2;
 
+    public ToggleButton activate_scp3;
+    public Slider slider_scp3;
+    public Label setpoint_label_scp3;
     public Label voltage_scp3;
     public Label current_scp3;
     public Label power_scp3;
@@ -76,11 +83,50 @@ public class GUIController implements Initializable {
         current_chart_scp3.getData().add(model.getCurrentSeriesSCP3());
         temp_chart_scp3.getData().add(model.getTempSeriesSCP3());
 
+        // Configure sliders and slider labels
+        initializeSliders();
+
         if (!initializeSerial()) {   // initialize serial communication with STM32
             System.exit(5);
         }
 
         startUpdateDaemonTask();    // start update daemon
+    }
+
+    /**
+     * Initializes setpoint sliders and labels
+     * Add listeners and links them to labels and model
+     */
+    private void initializeSliders() {
+        // Slider1
+        slider_scp1.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                // get new value from slider and set it as label text
+                setpoint_label_scp1.textProperty().setValue(String.valueOf(newValue.intValue()));
+                model.setSetpointSCP1(newValue.intValue());
+            }
+        });
+
+        // Slider1
+        slider_scp2.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                // get new value from slider and set it as label text
+                setpoint_label_scp2.textProperty().setValue(String.valueOf(newValue.intValue()));
+                model.setSetpointSCP2(newValue.intValue());
+            }
+        });
+
+        // Slider1
+        slider_scp3.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                // get new value from slider and set it as label text
+                setpoint_label_scp3.textProperty().setValue(String.valueOf(newValue.intValue()));
+                model.setSetpointSCP3(newValue.intValue());
+            }
+        });
     }
 
     /**
@@ -195,7 +241,7 @@ public class GUIController implements Initializable {
      * Sends the new PID set points over serial according to the tx/rx protocol
      * @param array to be sent
      */
-    private void sendSetPoints(int[] array) {
+    private void sendSetpoints(int[] array) {
         assert (array.length == 3); // array length must equal number of output channels to trigger interrupt in STM32
 
         StringBuilder pidString = new StringBuilder();
