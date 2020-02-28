@@ -38,7 +38,7 @@
                            </HBox.margin>
                         </Label>
                         <ToggleButton fx:id="activate_scp1" maxHeight="29.0" mnemonicParsing="false" prefHeight="28.0" text="Active" />
-                        <Slider fx:id="slider_scp1" max="125.0" min="25.0" prefHeight="24.0" prefWidth="300.0" showTickLabels="true" value="25.0">
+                        <Slider fx:id="slider_scp1" blockIncrement="5.0" max="125.0" min="25.0" prefHeight="24.0" prefWidth="300.0" showTickLabels="true" value="25.0">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
@@ -190,7 +190,7 @@
                            </HBox.margin>
                         </Label>
                         <ToggleButton fx:id="activate_scp2" maxHeight="29.0" mnemonicParsing="false" prefHeight="25.0" text="Active" />
-                        <Slider fx:id="slider_scp2" max="125.0" min="25.0" prefHeight="24.0" prefWidth="300.0" showTickLabels="true" value="25.0">
+                        <Slider fx:id="slider_scp2" blockIncrement="5.0" max="125.0" min="25.0" prefHeight="24.0" prefWidth="300.0" showTickLabels="true" value="25.0">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
@@ -339,7 +339,7 @@
                            </HBox.margin>
                         </Label>
                         <ToggleButton fx:id="activate_scp3" maxHeight="29.0" mnemonicParsing="false" prefHeight="25.0" text="Active" />
-                        <Slider fx:id="slider_scp3" max="125.0" min="25.0" prefHeight="24.0" prefWidth="300.0" showTickLabels="true" snapToTicks="true" value="25.0">
+                        <Slider fx:id="slider_scp3" blockIncrement="5.0" max="125.0" min="25.0" prefHeight="24.0" prefWidth="300.0" showTickLabels="true" snapToTicks="true" value="25.0">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
