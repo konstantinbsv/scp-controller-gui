@@ -2,6 +2,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.chart.XYChart;
 
+import java.util.Arrays;
+
 public class GUIModel {
 
     public static final int MAX_CHART_DATA_POINTS = 250;
@@ -27,6 +29,9 @@ public class GUIModel {
     private final StringProperty powerSCP3Property = new SimpleStringProperty("***");
     private final StringProperty tempSCP3Property = new SimpleStringProperty("***");
     private final StringProperty dutyCycleSCP3Property = new SimpleStringProperty("***");
+
+    // Set points
+    int[] setpoints = new int[3];
 
     /* Area Chart variables and arrays */
     int dataPointSCP = 0;
@@ -125,6 +130,23 @@ public class GUIModel {
         this.dutyCycleSCP3Property.set(dutyCycleSCP3);
     }
 
+    public void setSetpoints(int[] newSetpoints) {
+        assert (newSetpoints.length == 3);
+
+        // shallow copy arrays ok because int is primitive type
+        System.arraycopy(newSetpoints, 0, setpoints, 0, setpoints.length);
+    }
+
+    public void setSetpointSCP1(int newSetpointSCP1) {
+        setpoints[0] = newSetpointSCP1;
+    }
+
+    public void setSetpointSCP2(int newSetpointSCP2) {
+        setpoints[0] = newSetpointSCP2;
+    }
+    public void setSetpointSCP3(int newSetpointSCP3) {
+        setpoints[0] = newSetpointSCP3;
+    }
     /* GETTERS */
 
     public StringProperty getVoltageSCP1Property() {
@@ -209,6 +231,10 @@ public class GUIModel {
 
     public XYChart.Series getTempSeriesSCP3() {
         return temp_series_scp3;
+    }
+
+    private int[] getSetpoints() {
+        return Arrays.copyOf(setpoints, setpoints.length);
     }
 
     /* Chart Data Updaters */
