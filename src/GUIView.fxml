@@ -43,6 +43,24 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Slider>
+                        <Label text="Setpoint: ">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="setpoint_label_scp1" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="24.0" text="---">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="°C">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                </top>
@@ -177,6 +195,21 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Slider>
+                        <Label text="Setpoint: ">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="setpoint_label_scp2" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="24.0" text="---">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="°C">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                </top>
@@ -311,6 +344,21 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Slider>
+                        <Label text="Setpoint: ">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="setpoint_label_scp3" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="24.0" text="---">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="°C">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                </top>
