@@ -6,11 +6,13 @@ import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +31,8 @@ public class GUIController implements Initializable {
 
     GUIModel model;
 
+    public ToggleButton activate_scp1;
+    public Slider slider_scp1;
     public Label voltage_scp1;
     public Label current_scp1;
     public Label power_scp1;
@@ -75,6 +79,7 @@ public class GUIController implements Initializable {
         if (!initializeSerial()) {   // initialize serial communication with STM32
             System.exit(5);
         }
+
         startUpdateDaemonTask();    // start update daemon
     }
 
@@ -159,12 +164,17 @@ public class GUIController implements Initializable {
         model.setDutyCycleSCP3(PacketPatterns.getStringValue(getNextLine(), false));
 
         getNextLine(); // removes END marker from packet buffer
+
         String traceString = "Update properties time: " + (System.nanoTime() - startTime) / 1000;
         logger.log(Level.INFO, traceString);
     }
 
+    /**
+     * Retrieves next line from serial (stops when it reaches '\r' or '\n')
+     *
+     * @return String
+     */
     private String getNextLine() {
-       // long startTime = System.nanoTime();
 
         char currentChar;
         StringBuilder bufferString = new StringBuilder();
@@ -173,23 +183,43 @@ public class GUIController implements Initializable {
             do {
                 currentChar = (char) stmIn.read();
                 bufferString.append(currentChar);
-            } while (currentChar != '\r');
-            // System.out.print(bufferString.toString());
+            } while (currentChar != '\r' && currentChar != '\n');
         } catch (IOException io) {
             System.out.println("IO exception: " + io.toString());
         }
 
-    //    long msElapsed = (System.nanoTime() - startTime) / 1000;
-    //    System.out.println("Get next line time: " + msElapsed);
-    //        if (msElapsed > 200_000) {
-    //            System.out.println(bufferString.toString());
-    //        }
-
         return bufferString.toString();
     }
 
-    private void sendLineUART(String line) {
-        byte[] buffer = (line + "\r\n").getBytes();
+    /**
+     * Sends the new PID set points over serial according to the tx/rx protocol
+     * @param array to be sent
+     */
+    private void sendSetPoints(int[] array) {
+        assert (array.length == 3); // array length must equal number of output channels to trigger interrupt in STM32
+
+        StringBuilder pidString = new StringBuilder();
+        for (int i = 0; i < 3; i++){
+
+            if (array[i] < 10) {
+                pidString.append("00"); // STM32 expect 3 digits per set point
+            }
+            else if (array[i] < 100) {
+                pidString.append("0"); // STM32 expect 3 digits per set point
+            }
+            pidString.append(array[i]);
+            pidString.append("\r\n");
+        }
+
+        sendStringUART(pidString.toString());
+    }
+
+    /**
+     * Send string over serial
+     * @param line String to be sent
+     */
+    private void sendStringUART(String line) {
+        byte[] buffer = line.getBytes();
 
         // send bytes in new thread
         new Thread(new Runnable() {
