@@ -270,7 +270,7 @@ public class GUIController implements Initializable {
         getNextLine(); // removes END marker from packet buffer
 
         String traceString = "Update properties time: " + (System.nanoTime() - startTime) / 1000;
-        logger.log(Level.INFO, traceString);
+        logger.log(Level.FINE, traceString);
     }
 
     /**
@@ -287,7 +287,7 @@ public class GUIController implements Initializable {
             do {
                 currentChar = (char) stmIn.read();
                 bufferString.append(currentChar);
-            } while (currentChar != '\r' && currentChar != '\n');
+            } while (currentChar != '\r');
         } catch (IOException io) {
             System.out.println("IO exception: " + io.toString());
         }
