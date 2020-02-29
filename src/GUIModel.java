@@ -7,6 +7,8 @@ import java.util.Arrays;
 public class GUIModel {
 
     public static final int MAX_CHART_DATA_POINTS = 250;
+    public static final String activeToggleText = "Active";
+    public static final String inactiveToggleText = "Inactive";
     private static GUIModel model_instance = null;
 
     /* gui properties */
@@ -142,10 +144,10 @@ public class GUIModel {
     }
 
     public void setSetpointSCP2(int newSetpointSCP2) {
-        setpoints[0] = newSetpointSCP2;
+        setpoints[1] = newSetpointSCP2;
     }
     public void setSetpointSCP3(int newSetpointSCP3) {
-        setpoints[0] = newSetpointSCP3;
+        setpoints[2] = newSetpointSCP3;
     }
     /* GETTERS */
 
@@ -233,8 +235,20 @@ public class GUIModel {
         return temp_series_scp3;
     }
 
-    private int[] getSetpoints() {
+    public int[] getSetpoints() {
         return Arrays.copyOf(setpoints, setpoints.length);
+    }
+
+    public int getSetpointSCP1() {
+        return setpoints[0];
+    }
+
+    public int getSetpointSCP2() {
+        return setpoints[1];
+    }
+
+    public int getSetpointSCP3() {
+        return setpoints[2];
     }
 
     /* Chart Data Updaters */
