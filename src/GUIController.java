@@ -3,6 +3,9 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.control.Label;
@@ -64,7 +67,9 @@ public class GUIController implements Initializable {
     public AreaChart<Number, Number> current_chart_scp3;
     public AreaChart<Number, Number> temp_chart_scp3;
 
-    int i = 0;
+    private int setpointSCP1Store;
+    private int setpointSCP2Store;
+    private int setpointSCP3Store;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -84,6 +89,18 @@ public class GUIController implements Initializable {
         temp_chart_scp3.getData().add(model.getTempSeriesSCP3());
 
         // Configure sliders and slider labels
+        activate_scp1.setOnAction(event -> {
+            if(activate_scp1.isSelected()){
+                setpointSCP1Store = model.getSetpointSCP1();    // save current setpoint
+                model.setSetpointSCP1(0);                       // set model to zero
+                slider_scp1.setDisable(true);                   // disable slider
+            } else {
+                model.setSetpointSCP1(setpointSCP1Store);   // restore old setpoint
+                slider_scp1.setDisable(false);              // enable slider
+            }
+
+            sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
+        });
         initializeSliders();
 
         if (!initializeSerial()) {   // initialize serial communication with STM32
@@ -95,38 +112,39 @@ public class GUIController implements Initializable {
 
     /**
      * Initializes setpoint sliders and labels
+     * Creates EventHandler for each slider
      * Add listeners and links them to labels and model
      */
     private void initializeSliders() {
-        // Slider1
-        slider_scp1.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                // get new value from slider and set it as label text
-                setpoint_label_scp1.textProperty().setValue(String.valueOf(newValue.intValue()));
-                model.setSetpointSCP1(newValue.intValue());
-            }
-        });
+        // Slider 1
+        EventHandler<Event> scp1Event = event -> {
+            int newValue = (int) slider_scp1.getValue();
+            setpoint_label_scp1.textProperty().setValue(String.valueOf(newValue));
+            model.setSetpointSCP1(newValue);
+            sendSetpoints();
+        };
+        slider_scp1.setOnMouseReleased(scp1Event);  // only when mouse is released prevent sending of two many values
+        slider_scp1.setOnKeyReleased(scp1Event);    // can use keyboard arrows to change setpoints
 
-        // Slider1
-        slider_scp2.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                // get new value from slider and set it as label text
-                setpoint_label_scp2.textProperty().setValue(String.valueOf(newValue.intValue()));
-                model.setSetpointSCP2(newValue.intValue());
-            }
-        });
+        // Slider 2
+        EventHandler<Event> scp2Event = event -> {
+            int newValue = (int) slider_scp2.getValue();
+            setpoint_label_scp2.textProperty().setValue(String.valueOf(newValue));
+            model.setSetpointSCP2(newValue);
+            sendSetpoints();
+        };
+        slider_scp2.setOnMouseReleased(scp2Event);
+        slider_scp2.setOnKeyReleased(scp2Event);
 
-        // Slider1
-        slider_scp3.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                // get new value from slider and set it as label text
-                setpoint_label_scp3.textProperty().setValue(String.valueOf(newValue.intValue()));
-                model.setSetpointSCP3(newValue.intValue());
-            }
-        });
+        // Slider 3
+        EventHandler<Event> scp3Event = event -> {
+            int newValue = (int) slider_scp3.getValue();
+            setpoint_label_scp3.textProperty().setValue(String.valueOf(newValue));
+            model.setSetpointSCP3(newValue);
+            sendSetpoints();
+        };
+        slider_scp3.setOnMouseReleased(scp3Event);
+        slider_scp3.setOnKeyReleased(scp3Event);
     }
 
     /**
@@ -239,21 +257,22 @@ public class GUIController implements Initializable {
 
     /**
      * Sends the new PID set points over serial according to the tx/rx protocol
-     * @param array to be sent
+     *
      */
-    private void sendSetpoints(int[] array) {
-        assert (array.length == 3); // array length must equal number of output channels to trigger interrupt in STM32
+    private void sendSetpoints() {
+        int[] setpoints = model.getSetpoints();
+        assert (setpoints.length == 3); // array length must equal number of output channels to trigger interrupt in STM32
 
         StringBuilder pidString = new StringBuilder();
         for (int i = 0; i < 3; i++){
 
-            if (array[i] < 10) {
+            if (setpoints[i] < 10) {
                 pidString.append("00"); // STM32 expect 3 digits per set point
             }
-            else if (array[i] < 100) {
+            else if (setpoints[i] < 100) {
                 pidString.append("0"); // STM32 expect 3 digits per set point
             }
-            pidString.append(array[i]);
+            pidString.append(setpoints[i]);
             pidString.append("\r\n");
         }
 
@@ -262,10 +281,11 @@ public class GUIController implements Initializable {
 
     /**
      * Send string over serial
-     * @param line String to be sent
+     * @param inputString String to be sent
      */
-    private void sendStringUART(String line) {
-        byte[] buffer = line.getBytes();
+    private void sendStringUART(String inputString) {
+        logger.log(Level.INFO, inputString);        // send inputString to debugger
+        byte[] buffer = inputString.getBytes();
 
         // send bytes in new thread
         new Thread(new Runnable() {
