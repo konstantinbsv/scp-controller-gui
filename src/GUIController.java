@@ -88,15 +88,15 @@ public class GUIController implements Initializable {
         current_chart_scp3.getData().add(model.getCurrentSeriesSCP3());
         temp_chart_scp3.getData().add(model.getTempSeriesSCP3());
 
-        // Configure sliders and slider labels
-        initializeActivationButtons();
-        initializeSliders();
-
         if (!initializeSerial()) {   // initialize serial communication with STM32
             System.exit(5);
         }
 
         startUpdateDaemonTask();    // start update daemon
+
+        // Configure sliders and slider labels
+        initializeActivationButtons();
+        initializeSliders();
     }
 
     /**
@@ -114,7 +114,7 @@ public class GUIController implements Initializable {
             } else {
                 model.setSetpointSCP1(setpointSCP1Store);           // restore old setpoint
                 slider_scp1.setDisable(false);                      // enable slider
-                activate_scp1.setText(GUIModel.inactiveToggleText); // set text to active
+                activate_scp1.setText(GUIModel.activeToggleText); // set text to active
             }
             sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
         });
@@ -129,7 +129,7 @@ public class GUIController implements Initializable {
             } else {
                 model.setSetpointSCP2(setpointSCP2Store);           // restore old setpoint
                 slider_scp2.setDisable(false);                      // enable slider
-                activate_scp2.setText(GUIModel.inactiveToggleText); // set text to active
+                activate_scp2.setText(GUIModel.activeToggleText);   // set text to active
             }
             sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
         });
@@ -144,7 +144,7 @@ public class GUIController implements Initializable {
             } else {
                 model.setSetpointSCP3(setpointSCP3Store);           // restore old setpoint
                 slider_scp3.setDisable(false);                      // enable slider
-                activate_scp3.setText(GUIModel.inactiveToggleText); // set text to active
+                activate_scp3.setText(GUIModel.activeToggleText);   // set text to active
             }
             sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
         });
