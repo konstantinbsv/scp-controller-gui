@@ -89,18 +89,7 @@ public class GUIController implements Initializable {
         temp_chart_scp3.getData().add(model.getTempSeriesSCP3());
 
         // Configure sliders and slider labels
-        activate_scp1.setOnAction(event -> {
-            if(activate_scp1.isSelected()){
-                setpointSCP1Store = model.getSetpointSCP1();    // save current setpoint
-                model.setSetpointSCP1(0);                       // set model to zero
-                slider_scp1.setDisable(true);                   // disable slider
-            } else {
-                model.setSetpointSCP1(setpointSCP1Store);   // restore old setpoint
-                slider_scp1.setDisable(false);              // enable slider
-            }
-
-            sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
-        });
+        initializeActivationButtons();
         initializeSliders();
 
         if (!initializeSerial()) {   // initialize serial communication with STM32
@@ -108,6 +97,57 @@ public class GUIController implements Initializable {
         }
 
         startUpdateDaemonTask();    // start update daemon
+    }
+
+    /**
+     * Sets actions listeners on activations toggle buttons
+     * links buttons to model
+     */
+    private void initializeActivationButtons() {
+        // Activation button SCP1
+        activate_scp1.setOnAction(event -> {
+            if(activate_scp1.isSelected()){
+                setpointSCP1Store = model.getSetpointSCP1();        // save current setpoint
+                model.setSetpointSCP1(0);                           // set model to zero
+                slider_scp1.setDisable(true);                       // disable slider
+                activate_scp1.setText(GUIModel.inactiveToggleText); // set text to inactive
+            } else {
+                model.setSetpointSCP1(setpointSCP1Store);           // restore old setpoint
+                slider_scp1.setDisable(false);                      // enable slider
+                activate_scp1.setText(GUIModel.inactiveToggleText); // set text to active
+            }
+            sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
+        });
+
+        // Activation button SCP2
+        activate_scp2.setOnAction(event -> {
+            if(activate_scp2.isSelected()){
+                setpointSCP2Store = model.getSetpointSCP2();        // save current setpoint
+                model.setSetpointSCP2(0);                           // set model to zero
+                slider_scp2.setDisable(true);                       // disable slider
+                activate_scp2.setText(GUIModel.inactiveToggleText); // set text to inactive
+            } else {
+                model.setSetpointSCP2(setpointSCP2Store);           // restore old setpoint
+                slider_scp2.setDisable(false);                      // enable slider
+                activate_scp2.setText(GUIModel.inactiveToggleText); // set text to active
+            }
+            sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
+        });
+
+        // Activation button SCP3
+        activate_scp3.setOnAction(event -> {
+            if(activate_scp3.isSelected()){
+                setpointSCP3Store = model.getSetpointSCP3();        // save current setpoint
+                model.setSetpointSCP3(0);                           // set model to zero
+                slider_scp3.setDisable(true);                       // disable slider
+                activate_scp3.setText(GUIModel.inactiveToggleText); // set text to inactive
+            } else {
+                model.setSetpointSCP3(setpointSCP3Store);           // restore old setpoint
+                slider_scp3.setDisable(false);                      // enable slider
+                activate_scp3.setText(GUIModel.inactiveToggleText); // set text to active
+            }
+            sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
+        });
     }
 
     /**
