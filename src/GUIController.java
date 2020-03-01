@@ -21,6 +21,8 @@ import java.util.logging.Logger;
 
 public class GUIController implements Initializable {
 
+    static final boolean DEBUG_MODE = true;
+
     static final int refreshDelay = 50; // interface refresh delay in milliseconds
     Logger logger = Logger.getLogger(getClass().getName());
 
@@ -88,7 +90,7 @@ public class GUIController implements Initializable {
         current_chart_scp3.getData().add(model.getCurrentSeriesSCP3());
         temp_chart_scp3.getData().add(model.getTempSeriesSCP3());
 
-        if (!initializeSerial()) {   // initialize serial communication with STM32
+        if (!initializeSerial() && !DEBUG_MODE) {   // initialize serial communication with STM32
             System.exit(5);
         }
 
@@ -157,34 +159,49 @@ public class GUIController implements Initializable {
      */
     private void initializeSliders() {
         // Slider 1
-        EventHandler<Event> scp1Event = event -> {
+        EventHandler<Event> scp1CommEvent = event -> {  // serial communication event
             int newValue = (int) slider_scp1.getValue();
-            setpoint_label_scp1.textProperty().setValue(String.valueOf(newValue));
             model.setSetpointSCP1(newValue);
             sendSetpoints();
         };
-        slider_scp1.setOnMouseReleased(scp1Event);  // only when mouse is released prevent sending of two many values
-        slider_scp1.setOnKeyReleased(scp1Event);    // can use keyboard arrows to change setpoints
+        slider_scp1.setOnMouseReleased(scp1CommEvent);  // only when mouse is released prevent sending of two many values
+        slider_scp1.setOnKeyReleased(scp1CommEvent);    // can use keyboard arrows to change setpoints
+        slider_scp1.valueProperty().addListener(new ChangeListener<Number>() {  // update UI value continuously
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                setpoint_label_scp1.textProperty().setValue(String.valueOf(newValue.intValue())); // make int first to remove fractional digits
+            }
+        });
 
         // Slider 2
-        EventHandler<Event> scp2Event = event -> {
+        EventHandler<Event> scp2CommEvent = event -> {
             int newValue = (int) slider_scp2.getValue();
-            setpoint_label_scp2.textProperty().setValue(String.valueOf(newValue));
             model.setSetpointSCP2(newValue);
             sendSetpoints();
         };
-        slider_scp2.setOnMouseReleased(scp2Event);
-        slider_scp2.setOnKeyReleased(scp2Event);
+        slider_scp2.setOnMouseReleased(scp2CommEvent);
+        slider_scp2.setOnKeyReleased(scp2CommEvent);
+        slider_scp2.valueProperty().addListener(new ChangeListener<Number>() {  // update UI value continuously
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                setpoint_label_scp2.textProperty().setValue(String.valueOf(newValue));
+            }
+        });
 
         // Slider 3
-        EventHandler<Event> scp3Event = event -> {
+        EventHandler<Event> scp3CommEvent = event -> {
             int newValue = (int) slider_scp3.getValue();
-            setpoint_label_scp3.textProperty().setValue(String.valueOf(newValue));
             model.setSetpointSCP3(newValue);
             sendSetpoints();
         };
-        slider_scp3.setOnMouseReleased(scp3Event);
-        slider_scp3.setOnKeyReleased(scp3Event);
+        slider_scp3.setOnMouseReleased(scp3CommEvent);
+        slider_scp3.setOnKeyReleased(scp3CommEvent);
+        slider_scp3.valueProperty().addListener(new ChangeListener<Number>() {  // update UI value continuously
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                setpoint_label_scp3.textProperty().setValue(String.valueOf(newValue));
+            }
+        });
     }
 
     /**
