@@ -174,4 +174,5 @@
 /* Sliders */
 .slider .axis  {
     -fx-tick-label-fill: GREY_TICK_LABELS;
+    -fx-padding: 0;
 }
