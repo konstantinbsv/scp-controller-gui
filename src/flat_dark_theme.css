@@ -176,3 +176,16 @@
     -fx-tick-label-fill: GREY_TICK_LABELS;
     -fx-padding: 0;
 }
+
+.menu-bar {
+    -fx-background-color: #212121;
+}
+
+.menu {
+    -fx-background-color: #212121;
+}
+
+.menu:hover, .menu-item:hover {
+    -fx-background-color: derive(#212121, +30%);
+}
+
