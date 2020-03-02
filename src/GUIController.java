@@ -90,11 +90,9 @@ public class GUIController implements Initializable {
         // SCP1
         current_chart_scp1.getData().add(model.getCurrentSeriesSCP1());
         temp_chart_scp1.getData().add(model.getTempSeriesSCP1());
-
         // SCP2
         current_chart_scp2.getData().add(model.getCurrentSeriesSCP2());
         temp_chart_scp2.getData().add(model.getTempSeriesSCP2());
-
         // SCP3
         current_chart_scp3.getData().add(model.getCurrentSeriesSCP3());
         temp_chart_scp3.getData().add(model.getTempSeriesSCP3());
@@ -103,7 +101,8 @@ public class GUIController implements Initializable {
             System.exit(5);
         }
 
-        startUpdateDaemonTask();    // start update daemon
+        // start update daemon
+        startUpdateDaemonTask();
 
         // Configure sliders and slider labels
         initializeActivationButtons();
@@ -187,7 +186,7 @@ public class GUIController implements Initializable {
         EventHandler<Event> scp1CommEvent = event -> {  // serial communication event
             int newValue = (int) slider_scp1.getValue();
             model.setSetpointSCP1(newValue);
-            sendSetpoints();
+            sendSetpoints();    // send new slider setpoints to STM32
         };
         slider_scp1.setOnMouseReleased(scp1CommEvent);  // only when mouse is released prevent sending of two many values
         slider_scp1.setOnKeyReleased(scp1CommEvent);    // can use keyboard arrows to change setpoints
@@ -202,7 +201,7 @@ public class GUIController implements Initializable {
         EventHandler<Event> scp2CommEvent = event -> {
             int newValue = (int) slider_scp2.getValue();
             model.setSetpointSCP2(newValue);
-            sendSetpoints();
+            sendSetpoints();    // send new slider setpoints to STM32
         };
         slider_scp2.setOnMouseReleased(scp2CommEvent);
         slider_scp2.setOnKeyReleased(scp2CommEvent);
@@ -217,7 +216,7 @@ public class GUIController implements Initializable {
         EventHandler<Event> scp3CommEvent = event -> {
             int newValue = (int) slider_scp3.getValue();
             model.setSetpointSCP3(newValue);
-            sendSetpoints();
+            sendSetpoints();    // send new slider setpoints to STM32
         };
         slider_scp3.setOnMouseReleased(scp3CommEvent);
         slider_scp3.setOnKeyReleased(scp3CommEvent);
@@ -230,7 +229,7 @@ public class GUIController implements Initializable {
     }
 
     /**
-     * creates and starts and daemon task which calls functions necessary to update UI
+     * Creates and starts and daemon task which calls functions necessary to update UI
      */
     private void startUpdateDaemonTask() {
         Task task = new Task<Void>() {
@@ -249,6 +248,9 @@ public class GUIController implements Initializable {
         th.start();
     }
 
+    /**
+     * Updates UI with data from model
+     */
     private void updateUI(){
         // SCP1
         voltage_scp1.setText(model.getVoltageSCP1Property().getValue());
@@ -409,6 +411,9 @@ public class GUIController implements Initializable {
         }
     }
 
+    /**
+     * Sets listeners on menu items
+     */
     void initializeMenuItems() {
         change_pids_menu_item.setOnAction(event -> {
             try {
