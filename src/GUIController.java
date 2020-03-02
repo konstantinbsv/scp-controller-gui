@@ -5,11 +5,17 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
@@ -67,6 +73,9 @@ public class GUIController implements Initializable {
     public AreaChart<Number, Number> current_chart_scp3;
     public AreaChart<Number, Number> temp_chart_scp3;
 
+    // menu items
+    public MenuItem change_pids_menu_item;
+
     private int setpointSCP1Store;
     private int setpointSCP2Store;
     private int setpointSCP3Store;
@@ -99,6 +108,9 @@ public class GUIController implements Initializable {
         // Configure sliders and slider labels
         initializeActivationButtons();
         initializeSliders();
+
+        // Menu items
+        initializeMenuItems();
     }
 
     /**
@@ -395,6 +407,27 @@ public class GUIController implements Initializable {
             // TODO: request new port from user
             return false;
         }
+    }
+
+    void initializeMenuItems() {
+        change_pids_menu_item.setOnAction(event -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("PIDView.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+
+                scene.getStylesheets().add(GUI.cssRes);     // use same as main stage
+                stage.setTitle("Change PID Coefficients");
+                stage.setScene(scene);
+                stage.getIcons().add(
+                        new Image(
+                                getClass().getResourceAsStream(GUI.iconRes),
+                                100, 100, true, true)); // add icon
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
 
