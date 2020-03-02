@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class GUIModel {
 
     public static final int MAX_CHART_DATA_POINTS = 250;
+    private static final int ERASE_DISTANCE = 10;
     public static final String activeToggleText = "Active";
     public static final String inactiveToggleText = "Inactive";
     private static GUIModel model_instance = null;
@@ -37,6 +38,8 @@ public class GUIModel {
 
     /* Area Chart variables and arrays */
     int dataPointSCP = 0;
+    int erasePoint = dataPointSCP + ERASE_DISTANCE;
+    boolean firstPassCompleted = false;
 
     // SCP1
     private XYChart.Series<Number, Number> current_series_scp1 = new XYChart.Series<>();
@@ -70,7 +73,7 @@ public class GUIModel {
 
     public final void setCurrentSCP1(String currentSCP1) {
         this.currentSCP1Property.set(currentSCP1);
-        updateCurrentChartSeriesSCP1(Float.parseFloat(currentSCP1));
+        // updateCurrentChartSeriesSCP1(Float.parseFloat(currentSCP1));
     }
 
     public void setPowerSCP1(String powerSCP1) {
@@ -79,7 +82,7 @@ public class GUIModel {
 
     public void setTempSCP1(String tempSCP1) {
         this.tempSCP1Property.set(tempSCP1);
-        updateTempChartSeriesSCP1(Float.parseFloat(tempSCP1));
+        // updateTempChartSeriesSCP1(Float.parseFloat(tempSCP1));
     }
 
     public void setDutyCycleSCP1(String dutyCycleSCP1) {
@@ -92,7 +95,7 @@ public class GUIModel {
 
     public void setCurrentSCP2(String currentSCP2) {
         this.currentSCP2Property.set(currentSCP2);
-         updateCurrentChartSeriesSCP2(Float.parseFloat(currentSCP2));
+         // updateCurrentChartSeriesSCP2(Float.parseFloat(currentSCP2));
     }
 
     public void setPowerSCP2(String powerSCP2) {
@@ -101,7 +104,7 @@ public class GUIModel {
 
     public void setTempSCP2(String tempSCP2) {
         this.tempSCP2Property.set(tempSCP2);
-        updateTempChartSeriesSCP2(Float.parseFloat(tempSCP2));
+        // updateTempChartSeriesSCP2(Float.parseFloat(tempSCP2));
 
     }
 
@@ -115,7 +118,7 @@ public class GUIModel {
 
     public void setCurrentSCP3(String currentSCP3) {
         this.currentSCP3Property.set(currentSCP3);
-        updateCurrentChartSeriesSCP3(Float.parseFloat(currentSCP3));
+        // updateCurrentChartSeriesSCP3(Float.parseFloat(currentSCP3));
 
     }
 
@@ -125,7 +128,7 @@ public class GUIModel {
 
     public void setTempSCP3(String tempSCP3) {
         this.tempSCP3Property.set(tempSCP3);
-        updateTempChartSeriesSCP3(Float.parseFloat(tempSCP3));
+        // updateTempChartSeriesSCP3(Float.parseFloat(tempSCP3));
     }
 
     public void setDutyCycleSCP3(String dutyCycleSCP3) {
@@ -252,7 +255,7 @@ public class GUIModel {
     }
 
     /* Chart Data Updaters */
-    private void updateCurrentChartSeriesSCP1(float currentSCP1) {
+    public void updateCurrentChartSeriesSCP1(float currentSCP1) {
         current_series_scp1.getData().add(new XYChart.Data<>(dataPointSCP, currentSCP1));
 
         dataPointSCP++;
@@ -287,5 +290,51 @@ public class GUIModel {
     private void updateTempChartSeriesSCP3(float tempSCP3) {
         temp_series_scp3.getData().add(new XYChart.Data<>(dataPointSCP, tempSCP3));
 
+    }
+
+    public void updateAreaCharts() {
+        /*
+        // erase ERASE_DISTANCE number of points ahead of current data point
+        if (firstPassCompleted) {
+            erasePoint = dataPointSCP + ERASE_DISTANCE; // set point up to which to erase
+            if (erasePoint > MAX_CHART_DATA_POINTS) {       // if erase point will go out of bounds
+                erasePoint -= MAX_CHART_DATA_POINTS;        // move around back to the beginning
+            }
+            
+            current_series_scp1.getData().clear();
+            temp_series_scp1.getData().clear();
+            current_series_scp2.getData().clear();
+            temp_series_scp2.getData().clear();
+            current_series_scp3.getData().clear();
+            temp_series_scp3.getData().clear();
+        }
+        */
+
+        current_series_scp1.getData().add(new XYChart.Data<>(dataPointSCP, Double.parseDouble(currentSCP1Property.get())));
+        temp_series_scp1.getData().add(new XYChart.Data<>(dataPointSCP, Double.parseDouble(tempSCP1Property.get())));
+
+        current_series_scp2.getData().add(new XYChart.Data<>(dataPointSCP, Double.parseDouble(currentSCP2Property.get())));
+        temp_series_scp2.getData().add(new XYChart.Data<>(dataPointSCP, Double.parseDouble(tempSCP2Property.get())));
+
+        current_series_scp3.getData().add(new XYChart.Data<>(dataPointSCP, Double.parseDouble(currentSCP3Property.get())));
+        temp_series_scp3.getData().add(new XYChart.Data<>(dataPointSCP, Double.parseDouble(tempSCP3Property.get())));
+
+        dataPointSCP++;
+        if (dataPointSCP > MAX_CHART_DATA_POINTS) {
+            dataPointSCP = 0;
+
+            current_series_scp1.getData().clear();
+            temp_series_scp1.getData().clear();
+            current_series_scp2.getData().clear();
+            temp_series_scp2.getData().clear();
+            current_series_scp3.getData().clear();
+            temp_series_scp3.getData().clear();
+            
+            /*
+            // if this is the first pass, set as complete
+            if (!firstPassCompleted) {
+                firstPassCompleted = true;
+            } */
+        }
     }
 }
