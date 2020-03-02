@@ -9,8 +9,8 @@ import javafx.fxml.FXMLLoader;
 
 public class GUI extends Application implements Runnable {
     private static final String stageTitle = "SCP Controller v1.0";
-    private static final String cssRes = "flat_dark_theme.css";
-    private static final String iconRes = "/res/images/icon3.png";
+    public static final String cssRes = "flat_dark_theme.css";
+    public static final String iconRes = "/res/images/icon3.png";
 
     @Override
     public void start(Stage stage) throws Exception {
