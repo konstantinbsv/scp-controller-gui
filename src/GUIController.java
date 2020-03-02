@@ -179,7 +179,7 @@ public class GUIController implements Initializable {
         };
         slider_scp1.setOnMouseReleased(scp1CommEvent);  // only when mouse is released prevent sending of two many values
         slider_scp1.setOnKeyReleased(scp1CommEvent);    // can use keyboard arrows to change setpoints
-        slider_scp1.valueProperty().addListener(new ChangeListener<Number>() {  // update UI value continuously
+        slider_scp1.valueProperty().addListener(new ChangeListener<Number>() {  // update UI label value continuously
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 setpoint_label_scp1.textProperty().setValue(String.valueOf(newValue.intValue())); // make int first to remove fractional digits
@@ -194,10 +194,10 @@ public class GUIController implements Initializable {
         };
         slider_scp2.setOnMouseReleased(scp2CommEvent);
         slider_scp2.setOnKeyReleased(scp2CommEvent);
-        slider_scp2.valueProperty().addListener(new ChangeListener<Number>() {  // update UI value continuously
+        slider_scp2.valueProperty().addListener(new ChangeListener<Number>() {  // update UI label value continuously
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                setpoint_label_scp2.textProperty().setValue(String.valueOf(newValue));
+                setpoint_label_scp2.textProperty().setValue(String.valueOf(newValue.intValue())); // make int first to remove fractional digits
             }
         });
 
@@ -209,10 +209,10 @@ public class GUIController implements Initializable {
         };
         slider_scp3.setOnMouseReleased(scp3CommEvent);
         slider_scp3.setOnKeyReleased(scp3CommEvent);
-        slider_scp3.valueProperty().addListener(new ChangeListener<Number>() {  // update UI value continuously
+        slider_scp3.valueProperty().addListener(new ChangeListener<Number>() {  // update UI label value continuously
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                setpoint_label_scp3.textProperty().setValue(String.valueOf(newValue));
+                setpoint_label_scp3.textProperty().setValue(String.valueOf(newValue.intValue())); // make int first to remove fractional digits
             }
         });
     }
