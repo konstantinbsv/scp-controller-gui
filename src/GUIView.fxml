@@ -491,7 +491,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Settings">
             <items>
-              <MenuItem mnemonicParsing="false" text="COM Port" />
+                  <MenuItem fx:id="change_pids_menu_item" mnemonicParsing="false" text="Change PID Coefficients" />
+              <MenuItem mnemonicParsing="false" text="Select COM Port" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
