@@ -3,7 +3,6 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -15,7 +14,6 @@ import javafx.scene.control.ToggleButton;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,11 +71,13 @@ public class GUIController implements Initializable {
     private int setpointSCP2Store;
     private int setpointSCP3Store;
 
+    private boolean firstUIUpdate = true;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         model = GUIModel.getInstance(); // get GUI model instance (singleton)
 
-        /* bind text properties to model */
+        /* bind area chart series in model to chart views */
         // SCP1
         current_chart_scp1.getData().add(model.getCurrentSeriesSCP1());
         temp_chart_scp1.getData().add(model.getTempSeriesSCP1());
@@ -99,6 +99,19 @@ public class GUIController implements Initializable {
         // Configure sliders and slider labels
         initializeActivationButtons();
         initializeSliders();
+    }
+
+    /**
+     * Initializes setpoint labels with temperature values from model
+     */
+    private void initializeWithSTM32Setpoints() {
+        int setpointSCP1 = (int) Double.parseDouble(model.getTempSCP1Property().get());
+        int setpointSCP2 = (int) Double.parseDouble(model.getTempSCP2Property().get());
+        int setpointSCP3 = (int) Double.parseDouble(model.getTempSCP3Property().get());
+
+        setpoint_label_scp1.setText(String.valueOf(setpointSCP1));
+        setpoint_label_scp2.setText(String.valueOf(setpointSCP2));
+        setpoint_label_scp3.setText(String.valueOf(setpointSCP3));
     }
 
     /**
@@ -245,7 +258,13 @@ public class GUIController implements Initializable {
         power_scp3.setText(model.getPowerSCP3Property().getValue());
         temp_scp3.setText(model.getTempSCP3Property().getValue());
         duty_cycle_scp3.setText(model.getDutyCycleSCP3Property().getValue());
-        
+
+        model.updateAreaCharts();
+
+        // if this is the first UI update, set the setpoint labels with data from STM32
+        if (firstUIUpdate)
+        initializeWithSTM32Setpoints();
+        firstUIUpdate = false;
     }
 
     /**
