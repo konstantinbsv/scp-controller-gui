@@ -12,8 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // get GUIModel instance
-
+        // initialize serial
+        STM32Serial.initializeSerial();
         Application.launch(GUI.class, args);
 //        Runnable gui = new GUI();
 //        Thread guiThread = new Thread(gui);
