@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PIDMenuController">
    <children>
       <VBox layoutX="33.0" layoutY="18.0" prefWidth="554.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -73,7 +73,7 @@
             </HBox>
          </children>
       </VBox>
-      <ImageView fitHeight="300.0" fitWidth="400.0" layoutX="100.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="14.0">
+      <ImageView fitHeight="176.0" fitWidth="459.0" layoutX="71.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0">
          <image>
             <Image url="@res/diagrams/pid_controller_diagram.png" />
          </image>
