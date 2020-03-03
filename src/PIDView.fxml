@@ -33,15 +33,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="SCP 1:" GridPane.rowIndex="1" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="SCP 2:" GridPane.rowIndex="2" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="SCP 3:" GridPane.rowIndex="3" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Proportional" GridPane.columnIndex="1" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Integral" GridPane.columnIndex="2" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Derivative" GridPane.columnIndex="3" />
-                  <TextField alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="scp1_p_field" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="P:" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="I:" GridPane.rowIndex="2" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="D:" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="SCP 1" GridPane.columnIndex="1" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="SCP 2" GridPane.columnIndex="2" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="SCP 3" GridPane.columnIndex="3" />
+                  <TextField fx:id="scp1_i_field" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="scp1_d_field" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <contextMenu>
                         <ContextMenu>
                           <items>
@@ -50,12 +50,12 @@
                         </ContextMenu>
                      </contextMenu>
                   </TextField>
-                  <TextField alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <TextField alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <TextField fx:id="scp2_p_field" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="scp2_i_field" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="scp2_d_field" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <TextField fx:id="scp3_p_field" alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="scp3_i_field" alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="scp3_d_field" alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                </children>
                <padding>
                   <Insets right="20.0" />
