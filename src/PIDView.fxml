@@ -75,7 +75,7 @@
       </VBox>
       <ImageView fitHeight="176.0" fitWidth="459.0" layoutX="71.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0">
          <image>
-            <Image url="@res/diagrams/pid_controller_diagram.png" />
+            <Image url="@res/diagrams/pid_controller_diagram_63.png" />
          </image>
       </ImageView>
    </children>
