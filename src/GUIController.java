@@ -31,14 +31,6 @@ public class GUIController implements Initializable {
     static final int refreshDelay = 50; // interface refresh delay in milliseconds
     Logger logger = Logger.getLogger(getClass().getName());
 
-    SerialPort stmPort;
-    InputStream stmIn;
-    static final String comPort = "COM8";
-    static final int baudRate = 115200;
-    static final int dataBits = 8;
-    static final int stopBits = 1;
-    static final int parity = 0;
-
     private GUIModel model;
 
     public ToggleButton activate_scp1;
@@ -99,10 +91,6 @@ public class GUIController implements Initializable {
         current_chart_scp3.getData().add(model.getCurrentSeriesSCP3());
         temp_chart_scp3.getData().add(model.getTempSeriesSCP3());
 
-        if (!initializeSerial() && !DEBUG_MODE) {   // initialize serial communication with STM32
-            System.exit(5);
-        }
-
         // start update daemon
         startUpdateDaemonTask();
 
@@ -144,7 +132,7 @@ public class GUIController implements Initializable {
                 slider_scp1.setDisable(false);                      // enable slider
                 activate_scp1.setText(GUIModel.activeToggleText); // set text to active
             }
-            sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
+            STM32Serial.sendSetpoints(model.getSetpoints()); // update STM32 with 0 as setpoint (i.e., disable this channel)
         });
 
         // Activation button SCP2
@@ -159,7 +147,7 @@ public class GUIController implements Initializable {
                 slider_scp2.setDisable(false);                      // enable slider
                 activate_scp2.setText(GUIModel.activeToggleText);   // set text to active
             }
-            sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
+            STM32Serial.sendSetpoints(model.getSetpoints()); // update STM32 with 0 as setpoint (i.e., disable this channel)
         });
 
         // Activation button SCP3
@@ -174,7 +162,7 @@ public class GUIController implements Initializable {
                 slider_scp3.setDisable(false);                      // enable slider
                 activate_scp3.setText(GUIModel.activeToggleText);   // set text to active
             }
-            sendSetpoints(); // update STM32 with 0 as setpoint (i.e., disable this channel)
+            STM32Serial.sendSetpoints(model.getSetpoints()); // update STM32 with 0 as setpoint (i.e., disable this channel)
         });
     }
 
@@ -188,7 +176,7 @@ public class GUIController implements Initializable {
         EventHandler<Event> scp1CommEvent = event -> {  // serial communication event
             int newValue = (int) slider_scp1.getValue();
             model.setSetpointSCP1(newValue);
-            sendSetpoints();    // send new slider setpoints to STM32
+            STM32Serial.sendSetpoints(model.getSetpoints()); // send new slider setpoints to STM32
         };
         slider_scp1.setOnMouseReleased(scp1CommEvent);  // only when mouse is released prevent sending of two many values
         slider_scp1.setOnKeyReleased(scp1CommEvent);    // can use keyboard arrows to change setpoints
@@ -203,7 +191,7 @@ public class GUIController implements Initializable {
         EventHandler<Event> scp2CommEvent = event -> {
             int newValue = (int) slider_scp2.getValue();
             model.setSetpointSCP2(newValue);
-            sendSetpoints();    // send new slider setpoints to STM32
+            STM32Serial.sendSetpoints(model.getSetpoints()); // send new slider setpoints to STM32
         };
         slider_scp2.setOnMouseReleased(scp2CommEvent);
         slider_scp2.setOnKeyReleased(scp2CommEvent);
@@ -218,7 +206,7 @@ public class GUIController implements Initializable {
         EventHandler<Event> scp3CommEvent = event -> {
             int newValue = (int) slider_scp3.getValue();
             model.setSetpointSCP3(newValue);
-            sendSetpoints();    // send new slider setpoints to STM32
+            STM32Serial.sendSetpoints(model.getSetpoints()); // send new slider setpoints to STM32
         };
         slider_scp3.setOnMouseReleased(scp3CommEvent);
         slider_scp3.setOnKeyReleased(scp3CommEvent);
@@ -291,7 +279,7 @@ public class GUIController implements Initializable {
         long startTime = System.nanoTime();
 
         // wait for start of packet
-        String line  = getNextLine();
+        String line  = STM32Serial.getNextLine();
         if (!PacketPatterns.isPacketStart(line)) {
             System.out.println(line);
             return;
@@ -299,119 +287,32 @@ public class GUIController implements Initializable {
        // System.out.println("Waiting time: " + (System.nanoTime() - startTime));
 
         // SCP1
-        model.setVoltageSCP1(PacketPatterns.getStringValue(getNextLine()));
-        model.setCurrentSCP1(PacketPatterns.getStringValue(getNextLine()));
-        model.setPowerSCP1(PacketPatterns.getStringValue(getNextLine()));
-        model.setTempSCP1(PacketPatterns.getStringValue(getNextLine()));
-        model.setDutyCycleSCP1(PacketPatterns.getStringValue(getNextLine(), false));
+        model.setVoltageSCP1(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setCurrentSCP1(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setPowerSCP1(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setTempSCP1(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setDutyCycleSCP1(PacketPatterns.getStringValue(STM32Serial.getNextLine(), false));
 
         // SCP2
-        model.setVoltageSCP2(PacketPatterns.getStringValue(getNextLine()));
-        model.setCurrentSCP2(PacketPatterns.getStringValue(getNextLine()));
-        model.setPowerSCP2(PacketPatterns.getStringValue(getNextLine()));
-        model.setTempSCP2(PacketPatterns.getStringValue(getNextLine()));
-        model.setDutyCycleSCP2(PacketPatterns.getStringValue(getNextLine(), false));
+        model.setVoltageSCP2(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setCurrentSCP2(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setPowerSCP2(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setTempSCP2(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setDutyCycleSCP2(PacketPatterns.getStringValue(STM32Serial.getNextLine(), false));
 
         // SCP3
-        model.setVoltageSCP3(PacketPatterns.getStringValue(getNextLine()));
-        model.setCurrentSCP3(PacketPatterns.getStringValue(getNextLine()));
-        model.setPowerSCP3(PacketPatterns.getStringValue(getNextLine()));
-        model.setTempSCP3(PacketPatterns.getStringValue(getNextLine()));
-        model.setDutyCycleSCP3(PacketPatterns.getStringValue(getNextLine(), false));
+        model.setVoltageSCP3(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setCurrentSCP3(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setPowerSCP3(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setTempSCP3(PacketPatterns.getStringValue(STM32Serial.getNextLine()));
+        model.setDutyCycleSCP3(PacketPatterns.getStringValue(STM32Serial.getNextLine(), false));
 
-        getNextLine(); // removes END marker from packet buffer
+        STM32Serial.getNextLine(); // removes END marker from packet buffer
 
         String traceString = "Update properties time: " + (System.nanoTime() - startTime) / 1000;
         logger.log(Level.FINE, traceString);
     }
 
-    /**
-     * Retrieves next line from serial (stops when it reaches '\r' or '\n')
-     *
-     * @return String
-     */
-    private String getNextLine() {
-
-        char currentChar;
-        StringBuilder bufferString = new StringBuilder();
-
-        try {
-            do {
-                currentChar = (char) stmIn.read();
-                bufferString.append(currentChar);
-            } while (currentChar != '\r');
-        } catch (IOException io) {
-            System.out.println("IO exception: " + io.toString());
-        }
-
-        return bufferString.toString();
-    }
-
-    /**
-     * Sends the new PID set points over serial according to the tx/rx protocol
-     *
-     */
-    private void sendSetpoints() {
-        int[] setpoints = model.getSetpoints();
-        assert (setpoints.length == 3); // array length must equal number of output channels to trigger interrupt in STM32
-
-        StringBuilder pidString = new StringBuilder();
-        for (int i = 0; i < 3; i++){
-
-            if (setpoints[i] < 10) {
-                pidString.append("00"); // STM32 expect 3 digits per set point
-            }
-            else if (setpoints[i] < 100) {
-                pidString.append("0"); // STM32 expect 3 digits per set point
-            }
-            pidString.append(setpoints[i]);
-            pidString.append("\r\n");
-        }
-
-        sendStringUART(pidString.toString());
-    }
-
-    /**
-     * Send string over serial
-     * @param inputString String to be sent
-     */
-    private void sendStringUART(String inputString) {
-        logger.log(Level.INFO, inputString);        // send inputString to debugger
-        byte[] buffer = inputString.getBytes();
-
-        // send bytes in new thread
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                stmPort.writeBytes(buffer, buffer.length);
-            }
-        }).start();
-
-    }
-
-    /**
-     * Initializes serial communication with STM32
-     *
-     * @return true if initialization successful
-     */
-    boolean initializeSerial() {
-
-        stmPort = SerialPort.getCommPort(comPort);
-        stmPort.setComPortParameters(baudRate, dataBits, stopBits, parity);
-        stmPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0 , 0);
-
-        /* Initialize COM port */
-        if (stmPort.openPort()) {
-            System.out.println("Port " + comPort + " opened successfully!");
-            // stmIn = new BufferedReader(new InputStreamReader(stmPort.getInputStream()));
-            stmIn = stmPort.getInputStream();
-            return true;
-        } else {
-            System.out.println("Port " + comPort + " unreachable");
-            // TODO: request new port from user
-            return false;
-        }
-    }
 
     /**
      * Sets listeners on menu items
