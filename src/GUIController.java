@@ -16,6 +16,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.net.URL;
@@ -38,7 +39,7 @@ public class GUIController implements Initializable {
     static final int stopBits = 1;
     static final int parity = 0;
 
-    GUIModel model;
+    private GUIModel model;
 
     public ToggleButton activate_scp1;
     public Slider slider_scp1;
@@ -75,6 +76,7 @@ public class GUIController implements Initializable {
 
     // menu items
     public MenuItem change_pids_menu_item;
+    public MenuItem about_menu;
 
     private int setpointSCP1Store;
     private int setpointSCP2Store;
@@ -427,6 +429,28 @@ public class GUIController implements Initializable {
                 stage.getIcons().add(
                         new Image(
                                 getClass().getResourceAsStream(GUI.iconRes),
+                                100, 100, true, true)); // add icon
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+
+        about_menu.setOnAction(event -> {
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("AboutView.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = new Stage(StageStyle.UTILITY);
+
+                scene.getStylesheets().add(GUI.cssRes);
+                stage.setTitle("About SCP Controller");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.getIcons().add(
+                        new Image(getClass().getResourceAsStream(GUI.iconRes),
                                 100, 100, true, true)); // add icon
                 stage.show();
             } catch (IOException e) {
