@@ -106,6 +106,7 @@ public class GUIController implements Initializable {
      * Initializes setpoint labels with temperature values from model
      */
     private void initializeWithSTM32Setpoints() {
+        // get setpoints from current temperature of fiber.
         int setpointSCP1 = (int) Double.parseDouble(model.getTempSCP1Property().get());
         int setpointSCP2 = (int) Double.parseDouble(model.getTempSCP2Property().get());
         int setpointSCP3 = (int) Double.parseDouble(model.getTempSCP3Property().get());
@@ -113,6 +114,10 @@ public class GUIController implements Initializable {
         setpoint_label_scp1.setText(String.valueOf(setpointSCP1));
         setpoint_label_scp2.setText(String.valueOf(setpointSCP2));
         setpoint_label_scp3.setText(String.valueOf(setpointSCP3));
+
+        model.setSetpointSCP1(setpointSCP1);
+        model.setSetpointSCP2(setpointSCP2);
+        model.setSetpointSCP3(setpointSCP3);
     }
 
     /**
@@ -266,9 +271,10 @@ public class GUIController implements Initializable {
         model.updateAreaCharts();
 
         // if this is the first UI update, set the setpoint labels with data from STM32
-        if (firstUIUpdate)
-        initializeWithSTM32Setpoints();
-        firstUIUpdate = false;
+        if (firstUIUpdate) {
+            initializeWithSTM32Setpoints();
+            firstUIUpdate = false;
+        }
     }
 
     /**
