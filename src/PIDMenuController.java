@@ -23,7 +23,7 @@ public class PIDMenuController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         model = GUIModel.getInstance();
 
-        // TODO: getPIDCoefficientsFromSTM32();
-        
+        // TODO: getPIDCoefficientsSTM32();
+
     }
 }
