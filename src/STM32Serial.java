@@ -15,6 +15,9 @@ public class STM32Serial {
     static final int stopBits = 1;
     static final int parity = 0;
 
+    static final int SEND_SETPOINT_DATA = 1;
+    static final int SEND_PID_COEF_DATA = 2;
+
     static Logger logger = Logger.getLogger("STM32Serial");
 
     /**
@@ -40,26 +43,45 @@ public class STM32Serial {
     }
 
     /**
-     * Sends the new PID set points over serial according to the tx/rx protocol
+     * Sends the new PID setpoints using sendData
      *
      */
-    static void sendSetpoints(int[] setpoints) {
-        assert (setpoints.length == 3); // array length must equal number of output channels to trigger interrupt in STM32
+    static void sendPIDCoefficients(int[] pidCoefficients){
+        sendData(pidCoefficients, SEND_PID_COEF_DATA);
+    }
 
-        StringBuilder pidString = new StringBuilder();
+    /**
+     * Sends the new PID setpoints using sendData
+     *
+     */
+    static void sendSetpoints(int[] setpoints){
+        sendData(setpoints, SEND_SETPOINT_DATA);
+    }
+
+    /**
+     * Sends data packet to STM32 (handled by UART interrupt on MCU) with data type specifier
+     * over serial according to the tx/rx protocol
+     * @param data      data to send
+     * @param dataType  type of data to be sent
+     */
+    static void sendData(int[] data, int dataType) {
+        assert (data.length == 3); // array length must equal number of output channels to trigger interrupt in STM32
+
+        StringBuilder dataString = new StringBuilder();
+        dataString.append(dataType);    // append data type specifier to start of data packet
         for (int i = 0; i < 3; i++){
 
-            if (setpoints[i] < 10) {
-                pidString.append("00"); // STM32 expect 3 digits per set point
+            if (data[i] < 10) {
+                dataString.append("00"); // STM32 expect 3 digits per set point
             }
-            else if (setpoints[i] < 100) {
-                pidString.append("0"); // STM32 expect 3 digits per set point
+            else if (data[i] < 100) {
+                dataString.append("0"); // STM32 expect 3 digits per set point
             }
-            pidString.append(setpoints[i]);
-            pidString.append("\r\n");
+            dataString.append(data[i]);
+            dataString.append("\r\n");
         }
 
-        sendStringUART(pidString.toString());
+        sendStringUART(dataString.toString());
     }
 
     /**
